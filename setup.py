@@ -22,7 +22,6 @@ setup(
         'm3u8',
         'Js2Py-3.13',
         'curl_cffi',
-        'x_client_transaction',
     ],
     python_requires='>=3.10',
     description='Twitter/X API wrapper with no API key required.',
