@@ -1,4 +1,4 @@
-# twitscrape
+# twitscraper
 
 A Python library for interacting with Twitter/X — no API key required.
 
@@ -31,7 +31,7 @@ Or use a browser extension like [EditThisCookie](https://chrome.google.com/webst
 
 ```python
 import asyncio
-from twitscrape import create_client
+from twitscraper import create_client
 
 async def main():
     client = await create_client({
@@ -49,7 +49,7 @@ asyncio.run(main())
 ### From a JSON file
 
 ```python
-from twitscrape import create_client_from_file
+from twitscraper import create_client_from_file
 
 client = await create_client_from_file("cookies.json")
 ```
@@ -66,7 +66,7 @@ client = await create_client_from_file("cookies.json")
 ### From a raw cookie string (Network tab)
 
 ```python
-from twitscrape import create_client_from_string
+from twitscraper import create_client_from_string
 
 raw = "auth_token=abc123; ct0=xyz789; twid=u%3D123456789"
 client = await create_client_from_string(raw)
@@ -75,7 +75,7 @@ client = await create_client_from_string(raw)
 ### From a browser extension export
 
 ```python
-from twitscrape import create_client_from_browser_export
+from twitscraper import create_client_from_browser_export
 
 # Paste the JSON array copied from EditThisCookie / Cookie-Editor
 raw_json = '[{"name": "auth_token", "value": "...", "domain": ".x.com"}, ...]'
@@ -93,7 +93,7 @@ for tweet in tweets:
 
 **Create a tweet**
 ```python
-tweet = await client.create_tweet("Hello from twitscrape!")
+tweet = await client.create_tweet("Hello from twitscraper!")
 ```
 
 **Upload media**
@@ -127,7 +127,7 @@ for i, media in enumerate(tweet.media):
 **Listen for new tweets**
 ```python
 import asyncio
-from twitscrape import Tweet
+from twitscraper import Tweet
 
 async def on_new_tweet(tweet: Tweet):
     print(f"New tweet: {tweet.text}")
