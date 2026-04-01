@@ -24,5 +24,8 @@ tests/log_run_all.txt
 .vscode/
 *.swp
 
+# macOS
+.DS_Store
+
 # Node
 /node_modules
