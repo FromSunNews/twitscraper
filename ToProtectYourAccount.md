@@ -1,34 +1,56 @@
-# What you need to do to protect your account
-Since this library uses an unofficial API, your account may be banned if you use it incorrectly. Therefore, please be sure to follow the measures below.
+# Protecting your account
 
-## Avoid sending too many requests
-Sending too many requests may be perceived as suspicious behavior. Therefore, please avoid sending consecutive requests and allow time for a cooldown. Specifically, you should not send so many requests that you get stuck in a [rate limit](https://github.com/d60/twikit/blob/main/ratelimits.md).
+Since twitscrape uses unofficial APIs, improper usage can lead to account suspension. Follow these guidelines:
 
-## Reuse login information
-As mentioned earlier, sending many requests can be perceived as suspicious behavior, especially logins, which are closely monitored. Therefore, the act of repeatedly calling the `login` method should be avoided. To do so, it is useful to reuse the login information contained in cookies by using the `save_cookies` and `load_cookies` methods. The specific methods are shown below:
+## 1. Respect rate limits
 
-The first time, there is a way to log in using the `login` method.
+Avoid hitting rate limits documented in [ratelimits.md](ratelimits.md). Add delays between requests:
+
 ```python
-client.login(
-    auth_info_1='...',
-    auth_info_2='...',
-    password='...'
-)
-```
-Then save the cookies.
-```python
-client.save_cookies('cookies.json')
-```
-After the second time, load the saved cookies.
-```python
-client.load_cookies('cookies.json')
+import asyncio
+
+for user_id in user_ids:
+    tweets = await client.get_user_tweets(user_id, "Tweets")
+    # Process tweets...
+    await asyncio.sleep(2)  # 2 second delay
 ```
 
-## Do not send too many messages.
-Twitter seems to monitor messages carefully, so it is best to refrain from excessive messaging.
+## 2. Reuse cookies — don't login repeatedly
 
-## Don't tweet sensitive content.
-You should not tweet sensitive content, especially content related to sexuality, violence, politics, discrimination, or hate speech. This is because such content violates Twitter's terms and conditions and may be banned.
+Logging in frequently triggers Twitter's anti-bot detection. Instead:
 
-#
-**Please use Twikit safely in accordance with the above instructions!**
+1. Get cookies once (from browser or via `client.login()`)
+2. Save them: `client.save_cookies("cookies.json")`
+3. Reuse them: `client = await create_client_from_file("cookies.json")`
+
+## 3. Limit DMs and follows
+
+Twitter monitors these actions closely:
+- DMs: Keep under 50/day for new accounts
+- Follows: Keep under 100/day
+
+## 4. Avoid sensitive content
+
+Don't tweet content that violates Twitter's ToS:
+- Hate speech
+- Violence
+- Sexual content
+- Spam
+
+## 5. Use realistic delays
+
+Mimic human behavior — don't send requests instantly back-to-back. Add random delays:
+
+```python
+import random
+
+await asyncio.sleep(random.uniform(1, 3))
+```
+
+## 6. Rotate accounts for high-volume scraping
+
+If scraping thousands of tweets, use multiple accounts and rotate between them to distribute load.
+
+---
+
+Use twitscrape responsibly!

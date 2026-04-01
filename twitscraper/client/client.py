@@ -215,6 +215,9 @@ class Client:
         return await self.request('POST', url, **kwargs)
 
     def _remove_duplicate_ct0_cookie(self) -> None:
+        # Skip nếu cookies là dict (CurlCffiHttpWrapper)
+        if isinstance(self.http.cookies, dict):
+            return
         cookies = {}
         for cookie in self.http.cookies.jar:
             if 'ct0' in cookies and cookie.name == 'ct0':
@@ -4246,7 +4249,7 @@ class Client:
 
         Examples
         --------
-        >>> from twikit.streaming import Topic
+        >>> from twitscraper.streaming import Topic
         >>>
         >>> topics = {
         ...     Topic.tweet_engagement('1739617652'), # Stream tweet engagement

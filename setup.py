@@ -1,17 +1,17 @@
 import re
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
-with open('./twikit/__init__.py') as f:
+with open('./twitscraper/__init__.py') as f:
     version = re.findall(r"__version__ = '(.+)'", f.read())[0]
 
-
 setup(
-    name='twikit',
+    name='twitscraper',
     version=version,
+    packages=find_packages(exclude=['tests*', 'examples*']),
     install_requires=[
         'httpx[socks]',
         'filetype',
@@ -20,13 +20,14 @@ setup(
         'lxml',
         'webvtt-py',
         'm3u8',
-        'Js2Py-3.13'
+        'Js2Py-3.13',
+        'curl_cffi',
+        'x_client_transaction',
     ],
-    python_requires='>=3.8',
-    description='Twitter API wrapper for python with **no API key required**.',
+    python_requires='>=3.10',
+    description='Twitter/X API wrapper with no API key required.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='MIT',
-    url='https://github.com/d60/twikit',
-    package_data={'twikit': ['py.typed']}
+    package_data={'twitscraper': ['py.typed']},
 )

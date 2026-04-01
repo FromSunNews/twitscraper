@@ -7,7 +7,7 @@ https://github.com/d60/twikit
 A Python library for interacting with the Twitter API.
 """
 
-__version__ = '2.3.3'
+__version__ = '1.0.2'
 
 import asyncio
 import os
@@ -29,3 +29,9 @@ from .notification import Notification
 from .trend import Trend
 from .tweet import CommunityNote, Poll, ScheduledTweet, Tweet
 from .user import User
+from .factory import (
+    create_client,
+    create_client_from_file,
+    create_client_from_string,
+    create_client_from_browser_export,
+)

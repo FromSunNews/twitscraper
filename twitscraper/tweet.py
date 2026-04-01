@@ -684,7 +684,7 @@ class Poll:
 
         self.duration_minutes = int(binding_values['duration_minutes']['string_value'])
         self.end_datetime_utc: str = binding_values['end_datetime_utc']['string_value']
-        updated = binding_values['last_updated_datetime_utc']['string_value']
+        updated = binding_values.get('last_updated_datetime_utc', {}).get('string_value', '')
         self.last_updated_datetime_utc: str = updated
 
         self.counts_are_final: bool = binding_values['counts_are_final']['boolean_value']

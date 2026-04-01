@@ -1,152 +1,152 @@
-> [!NOTE]
-> https://github.com/d60/twitter_login (under development)
+# twitscrape
 
-<img src="https://i.imgur.com/iJe6rsZ.png"  width="500">
+A Python library for interacting with Twitter/X — no API key required.
 
-
-
-![Number of GitHub stars](https://img.shields.io/github/stars/d60/twikit)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/d60/twikit)
-![Version](https://img.shields.io/pypi/v/twikit?label=PyPI)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Create%20your%20own%20Twitter%20bot%20for%20free%20with%20%22Twikit%22!%20%23python%20%23twitter%20%23twikit%20%23programming%20%23github%20%23bot&url=https%3A%2F%2Fgithub.com%2Fd60%2Ftwikit)
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/nCrByrr8cX)
-[![BuyMeACoffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/d60py)
-
-[[日本語](https://github.com/d60/twikit/blob/main/README-ja.md)]
-[[中文](https://github.com/d60/twikit/blob/main/README-zh.md)]
-
-
-# Twikit <img height="35"  src="https://i.imgur.com/9HSdIl4.png"  valign="bottom">
-
-A Simple Twitter API Scraper
-
-You can use functions such as posting or searching for tweets without an API key using this library.
-
-- [Documentation (English)](https://twikit.readthedocs.io/en/latest/twikit.html)
-
-
-🔵 [Discord](https://discord.gg/nCrByrr8cX)
-
-> [!NOTE]
-> Released twikit_grok an extension for using Grok AI with Twikit.  
-> For more details, visit: https://github.com/d60/twikit_grok.
-
-
-
+Uses cookie-based authentication and browser-level HTTP fingerprinting (`curl_cffi`) to bypass connection issues that affect standard `httpx` clients.
 
 ## Features
 
-### No API Key Required
+- No API key required
+- Cookie-based auth — paste cookies from your browser, no login flow needed
+- Supports 4 cookie input formats
+- Async API built on `twikit` internals
 
-This library uses scraping and does not require an API key.
-
-### Free
-
-This library is free to use.
-
-
-## Functionality
-
-By using Twikit, you can access functionalities such as the following:
-
--  Create tweets
-
--  Search tweets
-
--  Retrieve trending topics
-
-- etc...
-
-
-
-## Installing
+## Install
 
 ```bash
-
-pip install twikit
-
+pip install twitscraper
 ```
 
+## Getting your cookies
 
+1. Open [x.com](https://x.com) and log in
+2. Open DevTools → Application → Cookies → `https://x.com`
+3. Copy `auth_token` and `ct0` (minimum required)
 
-## Quick Example
+Or use a browser extension like [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie) or [Cookie-Editor](https://cookie-editor.com) to export all cookies at once.
 
-**Define a client and log in to the account.**
+## Quick start
+
+### From a dict
 
 ```python
 import asyncio
-from twikit import Client
-
-USERNAME = 'example_user'
-EMAIL = 'email@example.com'
-PASSWORD = 'password0000'
-
-# Initialize client
-client = Client('en-US')
+from twitscrape import create_client
 
 async def main():
-    await client.login(
-        auth_info_1=USERNAME,
-        auth_info_2=EMAIL,
-        password=PASSWORD,
-        cookies_file='cookies.json'
-    )
+    client = await create_client({
+        "auth_token": "your_auth_token",
+        "ct0": "your_ct0",
+        "twid": "u%3D123456789",
+    })
+
+    me = await client.user()
+    print(me.screen_name)
 
 asyncio.run(main())
 ```
 
-**Create a tweet with media attached.**
+### From a JSON file
 
 ```python
-# Upload media files and obtain media_ids
-media_ids = [
-    await client.upload_media('media1.jpg'),
-    await client.upload_media('media2.jpg')
-]
+from twitscrape import create_client_from_file
 
-# Create a tweet with the provided text and attached media
-await client.create_tweet(
-    text='Example Tweet',
-    media_ids=media_ids
-)
-
+client = await create_client_from_file("cookies.json")
 ```
 
-**Search the latest tweets based on a keyword**
-```python
-tweets = await client.search_tweet('python', 'Latest')
+`cookies.json`:
+```json
+{
+  "auth_token": "...",
+  "ct0": "...",
+  "twid": "u%3D123456789"
+}
+```
 
+### From a raw cookie string (Network tab)
+
+```python
+from twitscrape import create_client_from_string
+
+raw = "auth_token=abc123; ct0=xyz789; twid=u%3D123456789"
+client = await create_client_from_string(raw)
+```
+
+### From a browser extension export
+
+```python
+from twitscrape import create_client_from_browser_export
+
+# Paste the JSON array copied from EditThisCookie / Cookie-Editor
+raw_json = '[{"name": "auth_token", "value": "...", "domain": ".x.com"}, ...]'
+client = await create_client_from_browser_export(raw_json)
+```
+
+## Examples
+
+**Search tweets**
+```python
+tweets = await client.search_tweet("python", "Latest")
 for tweet in tweets:
-    print(
-        tweet.user.name,
-        tweet.text,
-        tweet.created_at
-    )
+    print(tweet.user.screen_name, tweet.text)
 ```
 
-**Retrieve user tweets**
+**Create a tweet**
 ```python
-tweets = await client.get_user_tweets('123456', 'Tweets')
-
-for tweet in tweets:
-    print(tweet.text)
+tweet = await client.create_tweet("Hello from twitscrape!")
 ```
 
-**Send a dm**
+**Upload media**
 ```python
-await client.send_dm('123456789', 'Hello')
+media_id = await client.upload_media("image.jpg")
+await client.create_tweet("Tweet with image", media_ids=[media_id])
+```
+
+**Send a DM**
+```python
+await client.send_dm("123456789", "Hello!")
 ```
 
 **Get trends**
 ```python
-await client.get_trends('trending')
+trends = await client.get_trends("trending")
+for t in trends:
+    print(t.name)
 ```
 
-More Examples: [examples](https://github.com/d60/twikit/tree/main/examples) <br>
+**Download tweet media**
+```python
+tweet = await client.get_tweet_by_id("tweet_id")
+for i, media in enumerate(tweet.media):
+    if media.type == "photo":
+        await media.download(f"photo_{i}.jpg")
+    elif media.type == "video":
+        await media.streams[-1].download(f"video_{i}.mp4")
+```
 
-## Contributing
+**Listen for new tweets**
+```python
+import asyncio
+from twitscrape import Tweet
 
-If you encounter any bugs or issues, please report them on [issues](https://github.com/d60/twikit/issues).
+async def on_new_tweet(tweet: Tweet):
+    print(f"New tweet: {tweet.text}")
 
+USER_ID = "44196397"
+before = (await client.get_user_tweets(USER_ID, "Tweets", count=1))[0]
 
-If you find this library useful, consider starring this repository⭐️
+while True:
+    await asyncio.sleep(60)
+    latest = (await client.get_user_tweets(USER_ID, "Tweets", count=1))[0]
+    if latest.id != before.id:
+        await on_new_tweet(latest)
+        before = latest
+```
+
+## Rate limits
+
+See [ratelimits.md](ratelimits.md) for per-endpoint limits (reset every 15 minutes).
+
+## License
+
+MIT

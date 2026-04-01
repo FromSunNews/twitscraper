@@ -8,6 +8,7 @@ from ..constants import (
     COMMUNITY_NOTE_FEATURES,
     COMMUNITY_TWEETS_FEATURES,
     FEATURES,
+    FOLLOWERS_FEATURES,
     JOIN_COMMUNITY_FEATURES,
     LIST_FEATURES,
     NOTE_TWEET_FEATURES,
@@ -37,18 +38,18 @@ class Endpoint:
     CREATE_TWEET = url('SiM_cAu83R0wnrpmKQQSEw/CreateTweet')
     CREATE_SCHEDULED_TWEET = url('LCVzRQGxOaGnOnYH01NQXg/CreateScheduledTweet')
     DELETE_TWEET = url('VaenaVgh5q5ih7kvyVjgtg/DeleteTweet')
-    USER_BY_SCREEN_NAME = url('NimuplG1OB7Fd2btCLdBOw/UserByScreenName')
-    USER_BY_REST_ID = url('tD8zKvQzwY3kdx5yz6YmOw/UserByRestId')
-    TWEET_DETAIL = url('U0HTv-bAWTBYylwEMT7x5A/TweetDetail')
+    USER_BY_SCREEN_NAME = url('IGgvgiOx4QZndDHuD3x9TQ/UserByScreenName')
+    USER_BY_REST_ID = url('WJ7rCtezBVT6nk6VM5R8Bw/UserByRestId')
+    TWEET_DETAIL = url('_8aYOgEDz35BrBcBal1-_w/TweetDetail')
     TWEET_RESULT_BY_REST_ID = url('Xl5pC_lBk_gcO2ItU39DQw/TweetResultByRestId')
     FETCH_SCHEDULED_TWEETS = url('ITtjAzvlZni2wWXwf295Qg/FetchScheduledTweets')
     DELETE_SCHEDULED_TWEET = url('CTOVqej0JBXAZSwkp1US0g/DeleteScheduledTweet')
-    RETWEETERS = url('X-XEqG5qHQSAwmvy00xfyQ/Retweeters')
+    RETWEETERS = url('i-CI8t2pJD15euZJErEDrg/Retweeters')
     FAVORITERS = url('LLkw5EcVutJL6y-2gkz22A/Favoriters')
     FETCH_COMMUNITY_NOTE = url('fKWPPj271aTM-AB9Xp48IA/BirdwatchFetchOneNote')
-    USER_TWEETS = url('QWF3SzpHmykQHsQMixG0cg/UserTweets')
-    USER_TWEETS_AND_REPLIES = url('vMkJyzx1wdmvOeeNG0n6Wg/UserTweetsAndReplies')
-    USER_MEDIA = url('2tLOJWwGuCTytDrGBg8VwQ/UserMedia')
+    USER_TWEETS = url('O0epvwaQPUx-bT9YlqlL6w/UserTweets')
+    USER_TWEETS_AND_REPLIES = url('OAx9yEcW3JA9bPo63pcYlA/UserTweetsAndReplies')
+    USER_MEDIA = url('vFPc2LVIu7so2uA_gHQAdg/UserMedia')
     USER_LIKES = url('IohM3gxQHfvWePH5E3KuNA/Likes')
     USER_HIGHLIGHTS_TWEETS = url('tHFm_XZc_NNi-CfUThwbNw/UserHighlightsTweets')
     HOME_TIMELINE = url('-X_hcgQzmHGl29-UXxz4sw/HomeTimeline')
@@ -60,18 +61,18 @@ class Endpoint:
     CREATE_BOOKMARK = url('aoDbu3RHznuiSkQ9aNM67Q/CreateBookmark')
     BOOKMARK_TO_FOLDER = url('4KHZvvNbHNf07bsgnL9gWA/bookmarkTweetToFolder')
     DELETE_BOOKMARK = url('Wlmlj2-xzyS1GN3a6cj-mQ/DeleteBookmark')
-    BOOKMARKS = url('qToeLeMs43Q8cr7tRYXmaQ/Bookmarks')
+    BOOKMARKS = url('-LGfdImKeQz0xS_jjUwzlA/Bookmarks')
     BOOKMARK_FOLDER_TIMELINE = url('8HoabOvl7jl9IC1Aixj-vg/BookmarkFolderTimeline')
     BOOKMARKS_ALL_DELETE = url('skiACZKC1GDYli-M8RzEPQ/BookmarksAllDelete')
     BOOKMARK_FOLDERS_SLICE = url('i78YDd0Tza-dV4SYs58kRg/BookmarkFoldersSlice')
     EDIT_BOOKMARK_FOLDER = url('a6kPp1cS1Dgbsjhapz1PNw/EditBookmarkFolder')
     DELETE_BOOKMARK_FOLDER = url('2UTTsO-6zs93XqlEUZPsSg/DeleteBookmarkFolder')
     CREATE_BOOKMARK_FOLDER = url('6Xxqpq8TM_CREYiuof_h5w/createBookmarkFolder')
-    FOLLOWERS = url('gC_lyAxZOptAMLCJX5UhWw/Followers')
-    BLUE_VERIFIED_FOLLOWERS = url('VmIlPJNEDVQ29HfzIhV4mw/BlueVerifiedFollowers')
+    FOLLOWERS = url('-FpGYzBsUxUOecYYfso0yA/Followers')
+    BLUE_VERIFIED_FOLLOWERS = url('4zBtcnE_c0v8wn1Zx0yF5Q/BlueVerifiedFollowers')
     FOLLOWERS_YOU_KNOW = url('f2tbuGNjfOE8mNUO5itMew/FollowersYouKnow')
-    FOLLOWING = url('2vUj-_Ek-UmBVDNtd8OnQA/Following')
-    USER_CREATOR_SUBSCRIPTIONS = url('Wsm5ZTCYtg2eH7mXAXPIgw/UserCreatorSubscriptions')
+    FOLLOWING = url('ntIPnH1WMBKW--4Tn1q71A/Following')
+    USER_CREATOR_SUBSCRIPTIONS = url('7qcGrVKpcooih_VvJLA1ng/UserCreatorSubscriptions')
     USER_DM_REACTION_MUTATION_ADD_MUTATION = url('VyDyV9pC2oZEj6g52hgnhA/useDMReactionMutationAddMutation')
     USER_DM_REACTION_MUTATION_REMOVE_MUTATION = url('bV_Nim3RYHsaJwMkTXJ6ew/useDMReactionMutationRemoveMutation')
     DM_MESSAGE_DELETE_MUTATION = url('BJ6DtxA2llfjnRoRjaiIiw/DMMessageDeleteMutation')
@@ -84,7 +85,7 @@ class Endpoint:
     LIST_REMOVE_MEMBER = url('cvDFkG5WjcXV0Qw5nfe1qQ/ListRemoveMember')
     LIST_MANAGEMENT_PACE_TIMELINE = url('47170qwZCt5aFo9cBwFoNA/ListsManagementPageTimeline')
     LIST_BY_REST_ID = url('9hbYpeVBMq8-yB8slayGWQ/ListByRestId')
-    LIST_LATEST_TWEETS_TIMELINE = url('HjsWc-nwwHKYwHenbHm-tw/ListLatestTweetsTimeline')
+    LIST_LATEST_TWEETS_TIMELINE = url('BkauSnPUDQTeeJsxq17opA/ListLatestTweetsTimeline')
     LIST_MEMBERS = url('BQp2IEYkgxuSxqbTAr1e1g/ListMembers')
     LIST_SUBSCRIBERS = url('74wGEkaBxrdoXakWTWMxRQ/ListSubscribers')
     SEARCH_COMMUNITY = url('daVUkhfHn7-Z8llpYVKJSw/CommunitiesSearchQuery')
@@ -463,11 +464,12 @@ class GQLClient:
         variables = {
             'userId': user_id,
             'count': count,
-            'includePromotedContent': False
+            'includePromotedContent': False,
+            'withGrokTranslatedBio': False,
         }
         if cursor is not None:
             variables['cursor'] = cursor
-        return await self.gql_get(endpoint, variables, FEATURES)
+        return await self.gql_get(endpoint, variables, FOLLOWERS_FEATURES)
 
     async def followers(self, user_id, count, cursor):
         return await self._friendships(user_id, count, Endpoint.FOLLOWERS, cursor)
