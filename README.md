@@ -4,6 +4,8 @@ A Python library for interacting with Twitter/X — no API key required.
 
 Uses cookie-based authentication and browser-level HTTP fingerprinting (`curl_cffi`) to bypass connection issues that affect standard `httpx` clients.
 
+https://github.com/FromSunNews/twitscraper/raw/main/public/demo_test_twitscraper.webm
+
 ## Features
 
 - No API key required
@@ -146,6 +148,19 @@ while True:
 ## Rate limits
 
 See [ratelimits.md](ratelimits.md) for per-endpoint limits (reset every 15 minutes).
+
+## Testing
+
+A full integration test suite is available in [`test_twitscraper/`](test_twitscraper/).
+
+```bash
+cd test_twitscraper
+pip install -r requirements.txt
+# add your cookies.json or .env (see test_twitscraper/README.md)
+cd tests && python run_all.py
+```
+
+See [test_twitscraper/README.md](test_twitscraper/README.md) for full setup instructions.
 
 ## License
 
