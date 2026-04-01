@@ -4,7 +4,7 @@ A Python library for interacting with Twitter/X — no API key required.
 
 Uses cookie-based authentication and browser-level HTTP fingerprinting (`curl_cffi`) to bypass connection issues that affect standard `httpx` clients.
 
-https://github.com/FromSunNews/twitscraper/raw/main/public/demo_test_twitscraper.webm
+![Demo](https://github.com/FromSunNews/twitscraper/raw/main/public/demo_test_twitscraper.gif)
 
 ## Features
 
